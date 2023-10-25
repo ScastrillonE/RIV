@@ -1,0 +1,119 @@
+{
+  "version": "34.0.0",
+  "artifacts": {
+    "RIVStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "RIVStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "RIVStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "RIVStack.template.json",
+        "terminationProtection": false,
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/29758f84d2d001ba7979430b6ff4d694b8afa22ce9cb7a89ceb6ca438ac534bd.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "RIVStack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "RIVStack.assets"
+      ],
+      "metadata": {
+        "/RIVStack/rekognition-face-validation/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "rekognitionfacevalidation0BBA82B1"
+          }
+        ],
+        "/RIVStack/rekognition-face-validation/Notifications/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "rekognitionfacevalidationNotificationsCEDA3F45"
+          }
+        ],
+        "/RIVStack/rekognition-face-validation/AllowBucketNotificationsToRIVStackprocessidentityverification81F0CB4C": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "rekognitionfacevalidationAllowBucketNotificationsToRIVStackprocessidentityverification81F0CB4C7FF24350"
+          }
+        ],
+        "/RIVStack/LambdaReadS3/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LambdaReadS37DB07EFF"
+          }
+        ],
+        "/RIVStack/process-identity-verification/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "processidentityverificationA9D58F42"
+          }
+        ],
+        "/RIVStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BucketNotificationsHandler050a0587b7544547bf325f094a3db834RoleB6FB88EC"
+          }
+        ],
+        "/RIVStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Role/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BucketNotificationsHandler050a0587b7544547bf325f094a3db834RoleDefaultPolicy2CF63D36"
+          }
+        ],
+        "/RIVStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BucketNotificationsHandler050a0587b7544547bf325f094a3db8347ECC3691"
+          }
+        ],
+        "/RIVStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/RIVStack/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable"
+          }
+        ],
+        "/RIVStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/RIVStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "RIVStack"
+    },
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    }
+  }
+}
