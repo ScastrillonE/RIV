@@ -1,28 +1,28 @@
 {
   "version": "34.0.0",
   "artifacts": {
-    "RIVStack.assets": {
+    "RIVPStack.assets": {
       "type": "cdk:asset-manifest",
       "properties": {
-        "file": "RIVStack.assets.json",
+        "file": "RIVPStack.assets.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
       }
     },
-    "RIVStack": {
+    "RIVPStack": {
       "type": "aws:cloudformation:stack",
       "environment": "aws://unknown-account/unknown-region",
       "properties": {
-        "templateFile": "RIVStack.template.json",
+        "templateFile": "RIVPStack.template.json",
         "terminationProtection": false,
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/096a3805bdb8d3e3cd8f89465a51311cb3d995336b31209d49b4a9c85d5af97a.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/5d786358e725f6351164c51c0cd9806bccc93c1f8b6b90bd1b0e6acac1e6fb09.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
-          "RIVStack.assets"
+          "RIVPStack.assets"
         ],
         "lookupRole": {
           "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
@@ -31,83 +31,83 @@
         }
       },
       "dependencies": [
-        "RIVStack.assets"
+        "RIVPStack.assets"
       ],
       "metadata": {
-        "/RIVStack/rekognition-face-validation/Resource": [
+        "/RIVPStack/rekognition-face-assets/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "rekognitionfacevalidation0BBA82B1"
+            "data": "rekognitionfaceassets5303E42F"
           }
         ],
-        "/RIVStack/rekognition-face-validation/Notifications/Resource": [
+        "/RIVPStack/rekognition-face-assets/Notifications/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "rekognitionfacevalidationNotificationsCEDA3F45"
+            "data": "rekognitionfaceassetsNotificationsF1190AAF"
           }
         ],
-        "/RIVStack/rekognition-face-validation/AllowBucketNotificationsToRIVStackprocessidentityverification81F0CB4C": [
+        "/RIVPStack/rekognition-face-assets/AllowBucketNotificationsToRIVPStackprocessidentityverificationBF6040F6": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "rekognitionfacevalidationAllowBucketNotificationsToRIVStackprocessidentityverification81F0CB4C7FF24350"
+            "data": "rekognitionfaceassetsAllowBucketNotificationsToRIVPStackprocessidentityverificationBF6040F6E4AA21E7"
           }
         ],
-        "/RIVStack/LambdaReadS3/Resource": [
+        "/RIVPStack/LambdaReadS3/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "LambdaReadS37DB07EFF"
           }
         ],
-        "/RIVStack/process-identity-verification/Resource": [
+        "/RIVPStack/process-identity-verification/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "processidentityverificationA9D58F42"
           }
         ],
-        "/RIVStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Role/Resource": [
+        "/RIVPStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Role/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "BucketNotificationsHandler050a0587b7544547bf325f094a3db834RoleB6FB88EC"
           }
         ],
-        "/RIVStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Role/DefaultPolicy/Resource": [
+        "/RIVPStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Role/DefaultPolicy/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "BucketNotificationsHandler050a0587b7544547bf325f094a3db834RoleDefaultPolicy2CF63D36"
           }
         ],
-        "/RIVStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Resource": [
+        "/RIVPStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "BucketNotificationsHandler050a0587b7544547bf325f094a3db8347ECC3691"
           }
         ],
-        "/RIVStack/CDKMetadata/Default": [
+        "/RIVPStack/CDKMetadata/Default": [
           {
             "type": "aws:cdk:logicalId",
             "data": "CDKMetadata"
           }
         ],
-        "/RIVStack/CDKMetadata/Condition": [
+        "/RIVPStack/CDKMetadata/Condition": [
           {
             "type": "aws:cdk:logicalId",
             "data": "CDKMetadataAvailable"
           }
         ],
-        "/RIVStack/BootstrapVersion": [
+        "/RIVPStack/BootstrapVersion": [
           {
             "type": "aws:cdk:logicalId",
             "data": "BootstrapVersion"
           }
         ],
-        "/RIVStack/CheckBootstrapVersion": [
+        "/RIVPStack/CheckBootstrapVersion": [
           {
             "type": "aws:cdk:logicalId",
             "data": "CheckBootstrapVersion"
           }
         ]
       },
-      "displayName": "RIVStack"
+      "displayName": "RIVPStack"
     },
     "Tree": {
       "type": "cdk:tree",

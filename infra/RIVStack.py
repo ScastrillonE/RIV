@@ -14,9 +14,8 @@ class RIVStack(Stack):
     def __init__(self, scope: Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
 
-        # Define your infrastructure resources here
-        # For example, create an S3 bucket
-        bucket = s3.Bucket(self, "rekognition-face-validation", bucket_name="rekognition-face-validation")
+        bucket = s3.Bucket(self, "rekognition-face-assets", bucket_name="rekognition-face-assets")
+        
         lambda_role_read_s3 = iam.Role(
             self,
             "LambdaReadS3",

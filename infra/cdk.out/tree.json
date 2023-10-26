@@ -4,21 +4,21 @@
     "id": "App",
     "path": "",
     "children": {
-      "RIVStack": {
-        "id": "RIVStack",
-        "path": "RIVStack",
+      "RIVPStack": {
+        "id": "RIVPStack",
+        "path": "RIVPStack",
         "children": {
-          "rekognition-face-validation": {
-            "id": "rekognition-face-validation",
-            "path": "RIVStack/rekognition-face-validation",
+          "rekognition-face-assets": {
+            "id": "rekognition-face-assets",
+            "path": "RIVPStack/rekognition-face-assets",
             "children": {
               "Resource": {
                 "id": "Resource",
-                "path": "RIVStack/rekognition-face-validation/Resource",
+                "path": "RIVPStack/rekognition-face-assets/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::S3::Bucket",
                   "aws:cdk:cloudformation:props": {
-                    "bucketName": "rekognition-face-validation"
+                    "bucketName": "rekognition-face-assets"
                   }
                 },
                 "constructInfo": {
@@ -28,11 +28,11 @@
               },
               "Notifications": {
                 "id": "Notifications",
-                "path": "RIVStack/rekognition-face-validation/Notifications",
+                "path": "RIVPStack/rekognition-face-assets/Notifications",
                 "children": {
                   "Resource": {
                     "id": "Resource",
-                    "path": "RIVStack/rekognition-face-validation/Notifications/Resource",
+                    "path": "RIVPStack/rekognition-face-assets/Notifications/Resource",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.CfnResource",
                       "version": "2.102.0"
@@ -44,9 +44,9 @@
                   "version": "10.3.0"
                 }
               },
-              "AllowBucketNotificationsToRIVStackprocessidentityverification81F0CB4C": {
-                "id": "AllowBucketNotificationsToRIVStackprocessidentityverification81F0CB4C",
-                "path": "RIVStack/rekognition-face-validation/AllowBucketNotificationsToRIVStackprocessidentityverification81F0CB4C",
+              "AllowBucketNotificationsToRIVPStackprocessidentityverificationBF6040F6": {
+                "id": "AllowBucketNotificationsToRIVPStackprocessidentityverificationBF6040F6",
+                "path": "RIVPStack/rekognition-face-assets/AllowBucketNotificationsToRIVPStackprocessidentityverificationBF6040F6",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
                   "aws:cdk:cloudformation:props": {
@@ -63,7 +63,7 @@
                     },
                     "sourceArn": {
                       "Fn::GetAtt": [
-                        "rekognitionfacevalidation0BBA82B1",
+                        "rekognitionfaceassets5303E42F",
                         "Arn"
                       ]
                     }
@@ -82,11 +82,11 @@
           },
           "LambdaReadS3": {
             "id": "LambdaReadS3",
-            "path": "RIVStack/LambdaReadS3",
+            "path": "RIVPStack/LambdaReadS3",
             "children": {
               "ImportLambdaReadS3": {
                 "id": "ImportLambdaReadS3",
-                "path": "RIVStack/LambdaReadS3/ImportLambdaReadS3",
+                "path": "RIVPStack/LambdaReadS3/ImportLambdaReadS3",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.Resource",
                   "version": "2.102.0"
@@ -94,7 +94,7 @@
               },
               "Resource": {
                 "id": "Resource",
-                "path": "RIVStack/LambdaReadS3/Resource",
+                "path": "RIVPStack/LambdaReadS3/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::IAM::Role",
                   "aws:cdk:cloudformation:props": {
@@ -139,15 +139,15 @@
           },
           "process-identity-verification": {
             "id": "process-identity-verification",
-            "path": "RIVStack/process-identity-verification",
+            "path": "RIVPStack/process-identity-verification",
             "children": {
               "Code": {
                 "id": "Code",
-                "path": "RIVStack/process-identity-verification/Code",
+                "path": "RIVPStack/process-identity-verification/Code",
                 "children": {
                   "Stage": {
                     "id": "Stage",
-                    "path": "RIVStack/process-identity-verification/Code/Stage",
+                    "path": "RIVPStack/process-identity-verification/Code/Stage",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.AssetStaging",
                       "version": "2.102.0"
@@ -155,7 +155,7 @@
                   },
                   "AssetBucket": {
                     "id": "AssetBucket",
-                    "path": "RIVStack/process-identity-verification/Code/AssetBucket",
+                    "path": "RIVPStack/process-identity-verification/Code/AssetBucket",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.aws_s3.BucketBase",
                       "version": "2.102.0"
@@ -169,7 +169,7 @@
               },
               "Resource": {
                 "id": "Resource",
-                "path": "RIVStack/process-identity-verification/Resource",
+                "path": "RIVPStack/process-identity-verification/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
                   "aws:cdk:cloudformation:props": {
@@ -177,7 +177,7 @@
                       "s3Bucket": {
                         "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
                       },
-                      "s3Key": "f173e9db07e3bce3dad228a62106a906f82606ab0864a576b327ea9a1326c6cf.zip"
+                      "s3Key": "0a885b7723a0ffd46822b12db4e985f939696b13da000c60e577a59940c1ff98.zip"
                     },
                     "handler": "process-identity-verification.handler",
                     "role": {
@@ -202,15 +202,15 @@
           },
           "BucketNotificationsHandler050a0587b7544547bf325f094a3db834": {
             "id": "BucketNotificationsHandler050a0587b7544547bf325f094a3db834",
-            "path": "RIVStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834",
+            "path": "RIVPStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834",
             "children": {
               "Role": {
                 "id": "Role",
-                "path": "RIVStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Role",
+                "path": "RIVPStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Role",
                 "children": {
                   "ImportRole": {
                     "id": "ImportRole",
-                    "path": "RIVStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Role/ImportRole",
+                    "path": "RIVPStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Role/ImportRole",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.Resource",
                       "version": "2.102.0"
@@ -218,7 +218,7 @@
                   },
                   "Resource": {
                     "id": "Resource",
-                    "path": "RIVStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Role/Resource",
+                    "path": "RIVPStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Role/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::IAM::Role",
                       "aws:cdk:cloudformation:props": {
@@ -257,11 +257,11 @@
                   },
                   "DefaultPolicy": {
                     "id": "DefaultPolicy",
-                    "path": "RIVStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Role/DefaultPolicy",
+                    "path": "RIVPStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Role/DefaultPolicy",
                     "children": {
                       "Resource": {
                         "id": "Resource",
-                        "path": "RIVStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Role/DefaultPolicy/Resource",
+                        "path": "RIVPStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Role/DefaultPolicy/Resource",
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
                           "aws:cdk:cloudformation:props": {
@@ -302,7 +302,7 @@
               },
               "Resource": {
                 "id": "Resource",
-                "path": "RIVStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Resource",
+                "path": "RIVPStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Resource",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.CfnResource",
                   "version": "2.102.0"
@@ -316,11 +316,11 @@
           },
           "CDKMetadata": {
             "id": "CDKMetadata",
-            "path": "RIVStack/CDKMetadata",
+            "path": "RIVPStack/CDKMetadata",
             "children": {
               "Default": {
                 "id": "Default",
-                "path": "RIVStack/CDKMetadata/Default",
+                "path": "RIVPStack/CDKMetadata/Default",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.CfnResource",
                   "version": "2.102.0"
@@ -328,7 +328,7 @@
               },
               "Condition": {
                 "id": "Condition",
-                "path": "RIVStack/CDKMetadata/Condition",
+                "path": "RIVPStack/CDKMetadata/Condition",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.CfnCondition",
                   "version": "2.102.0"
@@ -342,7 +342,7 @@
           },
           "BootstrapVersion": {
             "id": "BootstrapVersion",
-            "path": "RIVStack/BootstrapVersion",
+            "path": "RIVPStack/BootstrapVersion",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnParameter",
               "version": "2.102.0"
@@ -350,7 +350,7 @@
           },
           "CheckBootstrapVersion": {
             "id": "CheckBootstrapVersion",
-            "path": "RIVStack/CheckBootstrapVersion",
+            "path": "RIVPStack/CheckBootstrapVersion",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnRule",
               "version": "2.102.0"

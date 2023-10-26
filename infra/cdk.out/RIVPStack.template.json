@@ -1,17 +1,17 @@
 {
  "Resources": {
-  "rekognitionfaceverificationEBE0879A": {
+  "rekognitionfaceassets5303E42F": {
    "Type": "AWS::S3::Bucket",
    "Properties": {
-    "BucketName": "rekognition-face-verification"
+    "BucketName": "rekognition-face-assets"
    },
    "UpdateReplacePolicy": "Retain",
    "DeletionPolicy": "Retain",
    "Metadata": {
-    "aws:cdk:path": "RIVStack/rekognition-face-verification/Resource"
+    "aws:cdk:path": "RIVPStack/rekognition-face-assets/Resource"
    }
   },
-  "rekognitionfaceverificationNotifications0760B10B": {
+  "rekognitionfaceassetsNotificationsF1190AAF": {
    "Type": "Custom::S3BucketNotifications",
    "Properties": {
     "ServiceToken": {
@@ -21,7 +21,7 @@
      ]
     },
     "BucketName": {
-     "Ref": "rekognitionfaceverificationEBE0879A"
+     "Ref": "rekognitionfaceassets5303E42F"
     },
     "NotificationConfiguration": {
      "LambdaFunctionConfigurations": [
@@ -51,13 +51,13 @@
     "Managed": true
    },
    "DependsOn": [
-    "rekognitionfaceverificationAllowBucketNotificationsToRIVStackprocessidentityverification81F0CB4CEA7A8978"
+    "rekognitionfaceassetsAllowBucketNotificationsToRIVPStackprocessidentityverificationBF6040F6E4AA21E7"
    ],
    "Metadata": {
-    "aws:cdk:path": "RIVStack/rekognition-face-verification/Notifications/Resource"
+    "aws:cdk:path": "RIVPStack/rekognition-face-assets/Notifications/Resource"
    }
   },
-  "rekognitionfaceverificationAllowBucketNotificationsToRIVStackprocessidentityverification81F0CB4CEA7A8978": {
+  "rekognitionfaceassetsAllowBucketNotificationsToRIVPStackprocessidentityverificationBF6040F6E4AA21E7": {
    "Type": "AWS::Lambda::Permission",
    "Properties": {
     "Action": "lambda:InvokeFunction",
@@ -73,13 +73,13 @@
     },
     "SourceArn": {
      "Fn::GetAtt": [
-      "rekognitionfaceverificationEBE0879A",
+      "rekognitionfaceassets5303E42F",
       "Arn"
      ]
     }
    },
    "Metadata": {
-    "aws:cdk:path": "RIVStack/rekognition-face-verification/AllowBucketNotificationsToRIVStackprocessidentityverification81F0CB4C"
+    "aws:cdk:path": "RIVPStack/rekognition-face-assets/AllowBucketNotificationsToRIVPStackprocessidentityverificationBF6040F6"
    }
   },
   "LambdaReadS37DB07EFF": {
@@ -113,7 +113,7 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "RIVStack/LambdaReadS3/Resource"
+    "aws:cdk:path": "RIVPStack/LambdaReadS3/Resource"
    }
   },
   "processidentityverificationA9D58F42": {
@@ -138,7 +138,7 @@
     "LambdaReadS37DB07EFF"
    ],
    "Metadata": {
-    "aws:cdk:path": "RIVStack/process-identity-verification/Resource",
+    "aws:cdk:path": "RIVPStack/process-identity-verification/Resource",
     "aws:asset:path": "asset.0a885b7723a0ffd46822b12db4e985f939696b13da000c60e577a59940c1ff98",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
@@ -175,7 +175,7 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "RIVStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Role/Resource"
+    "aws:cdk:path": "RIVPStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Role/Resource"
    }
   },
   "BucketNotificationsHandler050a0587b7544547bf325f094a3db834RoleDefaultPolicy2CF63D36": {
@@ -199,7 +199,7 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "RIVStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Role/DefaultPolicy/Resource"
+    "aws:cdk:path": "RIVPStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Role/DefaultPolicy/Resource"
    }
   },
   "BucketNotificationsHandler050a0587b7544547bf325f094a3db8347ECC3691": {
@@ -224,7 +224,7 @@
     "BucketNotificationsHandler050a0587b7544547bf325f094a3db834RoleB6FB88EC"
    ],
    "Metadata": {
-    "aws:cdk:path": "RIVStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Resource"
+    "aws:cdk:path": "RIVPStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Resource"
    }
   },
   "CDKMetadata": {
@@ -233,7 +233,7 @@
     "Analytics": "v2:deflate64:H4sIAAAAAAAA/z2Oyw6CMBBFv4V9GRE2boXENcEPIKVUHOkjYUoMafh3W6quzpl7J5kp4VyUUGT8TbkY51zhAP7uuJhZiHpPFfh6FbN0rHmYryXUnOTOFNfDyMGHtpWLRiK0ht1WI1yUEP98Z8g1+M4qGeODrVUotjgm2xlVPSeSjuAasR+rkuy6CMn+cnThzQnNFDcaa0ZMR9rNPa05VXCBMnsRYr6sxqGW0CV+ACveCULzAAAA"
    },
    "Metadata": {
-    "aws:cdk:path": "RIVStack/CDKMetadata/Default"
+    "aws:cdk:path": "RIVPStack/CDKMetadata/Default"
    },
    "Condition": "CDKMetadataAvailable"
   }
