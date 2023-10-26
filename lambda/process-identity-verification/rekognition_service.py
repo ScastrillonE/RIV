@@ -9,7 +9,7 @@ class RekognitionService:
     def compare_faces(self, source_image_bytes: FaceImage,target_image_bytes:FaceImage, similarity_threshold=0.9):
         return self.rek_client.compare_faces(
             SimilarityThreshold=similarity_threshold,
-            SourceImage={'bytes':source_image_bytes.image_bytes},
-            TargetImage={ 'bytes': target_image_bytes.image_bytes}   
+            SourceImage={'Bytes':source_image_bytes.image_bytes},
+            TargetImage={ 'Bytes': target_image_bytes.image_bytes}   
         )
         
