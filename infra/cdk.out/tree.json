@@ -44,16 +44,16 @@
                   "version": "10.3.0"
                 }
               },
-              "AllowBucketNotificationsToRIVPStackprocessidentityverificationBF6040F6": {
-                "id": "AllowBucketNotificationsToRIVPStackprocessidentityverificationBF6040F6",
-                "path": "RIVPStack/rekognition-face-assets/AllowBucketNotificationsToRIVPStackprocessidentityverificationBF6040F6",
+              "AllowBucketNotificationsToRIVPStackprocessidentityverificationlambdaEC5456B6": {
+                "id": "AllowBucketNotificationsToRIVPStackprocessidentityverificationlambdaEC5456B6",
+                "path": "RIVPStack/rekognition-face-assets/AllowBucketNotificationsToRIVPStackprocessidentityverificationlambdaEC5456B6",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
                   "aws:cdk:cloudformation:props": {
                     "action": "lambda:InvokeFunction",
                     "functionName": {
                       "Fn::GetAtt": [
-                        "processidentityverificationA9D58F42",
+                        "processidentityverificationlambda3E170D35",
                         "Arn"
                       ]
                     },
@@ -130,6 +130,55 @@
                   "fqn": "aws-cdk-lib.aws_iam.CfnRole",
                   "version": "2.102.0"
                 }
+              },
+              "DefaultPolicy": {
+                "id": "DefaultPolicy",
+                "path": "RIVPStack/LambdaReadS3/DefaultPolicy",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "RIVPStack/LambdaReadS3/DefaultPolicy/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                      "aws:cdk:cloudformation:props": {
+                        "policyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "dynamodb:*",
+                              "Effect": "Allow",
+                              "Resource": [
+                                {
+                                  "Fn::GetAtt": [
+                                    "IdentityVerificationResultsTable95FE563F",
+                                    "Arn"
+                                  ]
+                                },
+                                {
+                                  "Ref": "AWS::NoValue"
+                                }
+                              ]
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "policyName": "LambdaReadS3DefaultPolicy9E5D7EF4",
+                        "roles": [
+                          {
+                            "Ref": "LambdaReadS37DB07EFF"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                      "version": "2.102.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Policy",
+                  "version": "2.102.0"
+                }
               }
             },
             "constructInfo": {
@@ -137,17 +186,17 @@
               "version": "2.102.0"
             }
           },
-          "process-identity-verification": {
-            "id": "process-identity-verification",
-            "path": "RIVPStack/process-identity-verification",
+          "process-identity-verification-lambda": {
+            "id": "process-identity-verification-lambda",
+            "path": "RIVPStack/process-identity-verification-lambda",
             "children": {
               "Code": {
                 "id": "Code",
-                "path": "RIVPStack/process-identity-verification/Code",
+                "path": "RIVPStack/process-identity-verification-lambda/Code",
                 "children": {
                   "Stage": {
                     "id": "Stage",
-                    "path": "RIVPStack/process-identity-verification/Code/Stage",
+                    "path": "RIVPStack/process-identity-verification-lambda/Code/Stage",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.AssetStaging",
                       "version": "2.102.0"
@@ -155,7 +204,7 @@
                   },
                   "AssetBucket": {
                     "id": "AssetBucket",
-                    "path": "RIVPStack/process-identity-verification/Code/AssetBucket",
+                    "path": "RIVPStack/process-identity-verification-lambda/Code/AssetBucket",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.aws_s3.BucketBase",
                       "version": "2.102.0"
@@ -169,7 +218,7 @@
               },
               "Resource": {
                 "id": "Resource",
-                "path": "RIVPStack/process-identity-verification/Resource",
+                "path": "RIVPStack/process-identity-verification-lambda/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
                   "aws:cdk:cloudformation:props": {
@@ -177,7 +226,7 @@
                       "s3Bucket": {
                         "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
                       },
-                      "s3Key": "0a885b7723a0ffd46822b12db4e985f939696b13da000c60e577a59940c1ff98.zip"
+                      "s3Key": "331f38b1a877d324e886c27fc5465e23826d580b3dd25b23dd92ae3b3a1cfaac.zip"
                     },
                     "handler": "process-identity-verification.handler",
                     "role": {
@@ -186,7 +235,136 @@
                         "Arn"
                       ]
                     },
-                    "runtime": "python3.8"
+                    "runtime": "python3.8",
+                    "timeout": 180
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_lambda.CfnFunction",
+                  "version": "2.102.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_lambda.Function",
+              "version": "2.102.0"
+            }
+          },
+          "upload-s3-lambda": {
+            "id": "upload-s3-lambda",
+            "path": "RIVPStack/upload-s3-lambda",
+            "children": {
+              "Code": {
+                "id": "Code",
+                "path": "RIVPStack/upload-s3-lambda/Code",
+                "children": {
+                  "Stage": {
+                    "id": "Stage",
+                    "path": "RIVPStack/upload-s3-lambda/Code/Stage",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.AssetStaging",
+                      "version": "2.102.0"
+                    }
+                  },
+                  "AssetBucket": {
+                    "id": "AssetBucket",
+                    "path": "RIVPStack/upload-s3-lambda/Code/AssetBucket",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3.BucketBase",
+                      "version": "2.102.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_s3_assets.Asset",
+                  "version": "2.102.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "RIVPStack/upload-s3-lambda/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                  "aws:cdk:cloudformation:props": {
+                    "code": {
+                      "s3Bucket": {
+                        "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+                      },
+                      "s3Key": "1b826c22c76c9ae30382aa7005732b595223be45b4b000f14816329ffac6233a.zip"
+                    },
+                    "handler": "uploads3.handler",
+                    "role": {
+                      "Fn::GetAtt": [
+                        "LambdaReadS37DB07EFF",
+                        "Arn"
+                      ]
+                    },
+                    "runtime": "python3.8",
+                    "timeout": 180
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_lambda.CfnFunction",
+                  "version": "2.102.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_lambda.Function",
+              "version": "2.102.0"
+            }
+          },
+          "get-info-dentity-verification-lambda": {
+            "id": "get-info-dentity-verification-lambda",
+            "path": "RIVPStack/get-info-dentity-verification-lambda",
+            "children": {
+              "Code": {
+                "id": "Code",
+                "path": "RIVPStack/get-info-dentity-verification-lambda/Code",
+                "children": {
+                  "Stage": {
+                    "id": "Stage",
+                    "path": "RIVPStack/get-info-dentity-verification-lambda/Code/Stage",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.AssetStaging",
+                      "version": "2.102.0"
+                    }
+                  },
+                  "AssetBucket": {
+                    "id": "AssetBucket",
+                    "path": "RIVPStack/get-info-dentity-verification-lambda/Code/AssetBucket",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3.BucketBase",
+                      "version": "2.102.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_s3_assets.Asset",
+                  "version": "2.102.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "RIVPStack/get-info-dentity-verification-lambda/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                  "aws:cdk:cloudformation:props": {
+                    "code": {
+                      "s3Bucket": {
+                        "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+                      },
+                      "s3Key": "c0e6367e0cf0a6e86f582104f73604bffd8a17d03e2846dd470c2a15cd36256c.zip"
+                    },
+                    "handler": "get-info-dentity-verification.handler",
+                    "role": {
+                      "Fn::GetAtt": [
+                        "LambdaReadS37DB07EFF",
+                        "Arn"
+                      ]
+                    },
+                    "runtime": "python3.8",
+                    "timeout": 180
                   }
                 },
                 "constructInfo": {
@@ -312,6 +490,524 @@
             "constructInfo": {
               "fqn": "constructs.Construct",
               "version": "10.3.0"
+            }
+          },
+          "FileUploadApi": {
+            "id": "FileUploadApi",
+            "path": "RIVPStack/FileUploadApi",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "RIVPStack/FileUploadApi/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::ApiGateway::RestApi",
+                  "aws:cdk:cloudformation:props": {
+                    "name": "FileUploadApi"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_apigateway.CfnRestApi",
+                  "version": "2.102.0"
+                }
+              },
+              "Deployment": {
+                "id": "Deployment",
+                "path": "RIVPStack/FileUploadApi/Deployment",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "RIVPStack/FileUploadApi/Deployment/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::ApiGateway::Deployment",
+                      "aws:cdk:cloudformation:props": {
+                        "description": "Automatically created by the RestApi construct",
+                        "restApiId": {
+                          "Ref": "FileUploadApiAF719C21"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_apigateway.CfnDeployment",
+                      "version": "2.102.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_apigateway.Deployment",
+                  "version": "2.102.0"
+                }
+              },
+              "DeploymentStage.prod": {
+                "id": "DeploymentStage.prod",
+                "path": "RIVPStack/FileUploadApi/DeploymentStage.prod",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "RIVPStack/FileUploadApi/DeploymentStage.prod/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::ApiGateway::Stage",
+                      "aws:cdk:cloudformation:props": {
+                        "deploymentId": {
+                          "Ref": "FileUploadApiDeployment1DF15B335c9bc53437210a75afcdd48d522041a3"
+                        },
+                        "restApiId": {
+                          "Ref": "FileUploadApiAF719C21"
+                        },
+                        "stageName": "prod"
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_apigateway.CfnStage",
+                      "version": "2.102.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_apigateway.Stage",
+                  "version": "2.102.0"
+                }
+              },
+              "Endpoint": {
+                "id": "Endpoint",
+                "path": "RIVPStack/FileUploadApi/Endpoint",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.102.0"
+                }
+              },
+              "Default": {
+                "id": "Default",
+                "path": "RIVPStack/FileUploadApi/Default",
+                "children": {
+                  "upload": {
+                    "id": "upload",
+                    "path": "RIVPStack/FileUploadApi/Default/upload",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "RIVPStack/FileUploadApi/Default/upload/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::ApiGateway::Resource",
+                          "aws:cdk:cloudformation:props": {
+                            "parentId": {
+                              "Fn::GetAtt": [
+                                "FileUploadApiAF719C21",
+                                "RootResourceId"
+                              ]
+                            },
+                            "pathPart": "upload",
+                            "restApiId": {
+                              "Ref": "FileUploadApiAF719C21"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_apigateway.CfnResource",
+                          "version": "2.102.0"
+                        }
+                      },
+                      "POST": {
+                        "id": "POST",
+                        "path": "RIVPStack/FileUploadApi/Default/upload/POST",
+                        "children": {
+                          "ApiPermission.RIVPStackFileUploadApi65EBE329.POST..upload": {
+                            "id": "ApiPermission.RIVPStackFileUploadApi65EBE329.POST..upload",
+                            "path": "RIVPStack/FileUploadApi/Default/upload/POST/ApiPermission.RIVPStackFileUploadApi65EBE329.POST..upload",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                              "aws:cdk:cloudformation:props": {
+                                "action": "lambda:InvokeFunction",
+                                "functionName": {
+                                  "Fn::GetAtt": [
+                                    "uploads3lambda1A0E162A",
+                                    "Arn"
+                                  ]
+                                },
+                                "principal": "apigateway.amazonaws.com",
+                                "sourceArn": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:",
+                                      {
+                                        "Ref": "AWS::Partition"
+                                      },
+                                      ":execute-api:",
+                                      {
+                                        "Ref": "AWS::Region"
+                                      },
+                                      ":",
+                                      {
+                                        "Ref": "AWS::AccountId"
+                                      },
+                                      ":",
+                                      {
+                                        "Ref": "FileUploadApiAF719C21"
+                                      },
+                                      "/",
+                                      {
+                                        "Ref": "FileUploadApiDeploymentStageprodBBFEA435"
+                                      },
+                                      "/POST/upload"
+                                    ]
+                                  ]
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                              "version": "2.102.0"
+                            }
+                          },
+                          "ApiPermission.Test.RIVPStackFileUploadApi65EBE329.POST..upload": {
+                            "id": "ApiPermission.Test.RIVPStackFileUploadApi65EBE329.POST..upload",
+                            "path": "RIVPStack/FileUploadApi/Default/upload/POST/ApiPermission.Test.RIVPStackFileUploadApi65EBE329.POST..upload",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                              "aws:cdk:cloudformation:props": {
+                                "action": "lambda:InvokeFunction",
+                                "functionName": {
+                                  "Fn::GetAtt": [
+                                    "uploads3lambda1A0E162A",
+                                    "Arn"
+                                  ]
+                                },
+                                "principal": "apigateway.amazonaws.com",
+                                "sourceArn": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:",
+                                      {
+                                        "Ref": "AWS::Partition"
+                                      },
+                                      ":execute-api:",
+                                      {
+                                        "Ref": "AWS::Region"
+                                      },
+                                      ":",
+                                      {
+                                        "Ref": "AWS::AccountId"
+                                      },
+                                      ":",
+                                      {
+                                        "Ref": "FileUploadApiAF719C21"
+                                      },
+                                      "/test-invoke-stage/POST/upload"
+                                    ]
+                                  ]
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                              "version": "2.102.0"
+                            }
+                          },
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "RIVPStack/FileUploadApi/Default/upload/POST/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::ApiGateway::Method",
+                              "aws:cdk:cloudformation:props": {
+                                "apiKeyRequired": true,
+                                "authorizationType": "NONE",
+                                "httpMethod": "POST",
+                                "integration": {
+                                  "type": "AWS_PROXY",
+                                  "uri": {
+                                    "Fn::Join": [
+                                      "",
+                                      [
+                                        "arn:",
+                                        {
+                                          "Ref": "AWS::Partition"
+                                        },
+                                        ":apigateway:",
+                                        {
+                                          "Ref": "AWS::Region"
+                                        },
+                                        ":lambda:path/2015-03-31/functions/",
+                                        {
+                                          "Fn::GetAtt": [
+                                            "uploads3lambda1A0E162A",
+                                            "Arn"
+                                          ]
+                                        },
+                                        "/invocations"
+                                      ]
+                                    ]
+                                  },
+                                  "integrationHttpMethod": "POST"
+                                },
+                                "resourceId": {
+                                  "Ref": "FileUploadApiupload5680723D"
+                                },
+                                "restApiId": {
+                                  "Ref": "FileUploadApiAF719C21"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_apigateway.CfnMethod",
+                              "version": "2.102.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_apigateway.Method",
+                          "version": "2.102.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_apigateway.Resource",
+                      "version": "2.102.0"
+                    }
+                  },
+                  "getIdentitySimilarity": {
+                    "id": "getIdentitySimilarity",
+                    "path": "RIVPStack/FileUploadApi/Default/getIdentitySimilarity",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "RIVPStack/FileUploadApi/Default/getIdentitySimilarity/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::ApiGateway::Resource",
+                          "aws:cdk:cloudformation:props": {
+                            "parentId": {
+                              "Fn::GetAtt": [
+                                "FileUploadApiAF719C21",
+                                "RootResourceId"
+                              ]
+                            },
+                            "pathPart": "getIdentitySimilarity",
+                            "restApiId": {
+                              "Ref": "FileUploadApiAF719C21"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_apigateway.CfnResource",
+                          "version": "2.102.0"
+                        }
+                      },
+                      "GET": {
+                        "id": "GET",
+                        "path": "RIVPStack/FileUploadApi/Default/getIdentitySimilarity/GET",
+                        "children": {
+                          "ApiPermission.RIVPStackFileUploadApi65EBE329.GET..getIdentitySimilarity": {
+                            "id": "ApiPermission.RIVPStackFileUploadApi65EBE329.GET..getIdentitySimilarity",
+                            "path": "RIVPStack/FileUploadApi/Default/getIdentitySimilarity/GET/ApiPermission.RIVPStackFileUploadApi65EBE329.GET..getIdentitySimilarity",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                              "aws:cdk:cloudformation:props": {
+                                "action": "lambda:InvokeFunction",
+                                "functionName": {
+                                  "Fn::GetAtt": [
+                                    "getinfodentityverificationlambda27689469",
+                                    "Arn"
+                                  ]
+                                },
+                                "principal": "apigateway.amazonaws.com",
+                                "sourceArn": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:",
+                                      {
+                                        "Ref": "AWS::Partition"
+                                      },
+                                      ":execute-api:",
+                                      {
+                                        "Ref": "AWS::Region"
+                                      },
+                                      ":",
+                                      {
+                                        "Ref": "AWS::AccountId"
+                                      },
+                                      ":",
+                                      {
+                                        "Ref": "FileUploadApiAF719C21"
+                                      },
+                                      "/",
+                                      {
+                                        "Ref": "FileUploadApiDeploymentStageprodBBFEA435"
+                                      },
+                                      "/GET/getIdentitySimilarity"
+                                    ]
+                                  ]
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                              "version": "2.102.0"
+                            }
+                          },
+                          "ApiPermission.Test.RIVPStackFileUploadApi65EBE329.GET..getIdentitySimilarity": {
+                            "id": "ApiPermission.Test.RIVPStackFileUploadApi65EBE329.GET..getIdentitySimilarity",
+                            "path": "RIVPStack/FileUploadApi/Default/getIdentitySimilarity/GET/ApiPermission.Test.RIVPStackFileUploadApi65EBE329.GET..getIdentitySimilarity",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                              "aws:cdk:cloudformation:props": {
+                                "action": "lambda:InvokeFunction",
+                                "functionName": {
+                                  "Fn::GetAtt": [
+                                    "getinfodentityverificationlambda27689469",
+                                    "Arn"
+                                  ]
+                                },
+                                "principal": "apigateway.amazonaws.com",
+                                "sourceArn": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:",
+                                      {
+                                        "Ref": "AWS::Partition"
+                                      },
+                                      ":execute-api:",
+                                      {
+                                        "Ref": "AWS::Region"
+                                      },
+                                      ":",
+                                      {
+                                        "Ref": "AWS::AccountId"
+                                      },
+                                      ":",
+                                      {
+                                        "Ref": "FileUploadApiAF719C21"
+                                      },
+                                      "/test-invoke-stage/GET/getIdentitySimilarity"
+                                    ]
+                                  ]
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                              "version": "2.102.0"
+                            }
+                          },
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "RIVPStack/FileUploadApi/Default/getIdentitySimilarity/GET/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::ApiGateway::Method",
+                              "aws:cdk:cloudformation:props": {
+                                "apiKeyRequired": true,
+                                "authorizationType": "NONE",
+                                "httpMethod": "GET",
+                                "integration": {
+                                  "type": "AWS_PROXY",
+                                  "uri": {
+                                    "Fn::Join": [
+                                      "",
+                                      [
+                                        "arn:",
+                                        {
+                                          "Ref": "AWS::Partition"
+                                        },
+                                        ":apigateway:",
+                                        {
+                                          "Ref": "AWS::Region"
+                                        },
+                                        ":lambda:path/2015-03-31/functions/",
+                                        {
+                                          "Fn::GetAtt": [
+                                            "getinfodentityverificationlambda27689469",
+                                            "Arn"
+                                          ]
+                                        },
+                                        "/invocations"
+                                      ]
+                                    ]
+                                  },
+                                  "integrationHttpMethod": "POST"
+                                },
+                                "resourceId": {
+                                  "Ref": "FileUploadApigetIdentitySimilarity04C64BBC"
+                                },
+                                "restApiId": {
+                                  "Ref": "FileUploadApiAF719C21"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_apigateway.CfnMethod",
+                              "version": "2.102.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_apigateway.Method",
+                          "version": "2.102.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_apigateway.Resource",
+                      "version": "2.102.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_apigateway.ResourceBase",
+                  "version": "2.102.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_apigateway.RestApi",
+              "version": "2.102.0"
+            }
+          },
+          "IdentityVerificationResultsTable": {
+            "id": "IdentityVerificationResultsTable",
+            "path": "RIVPStack/IdentityVerificationResultsTable",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "RIVPStack/IdentityVerificationResultsTable/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::DynamoDB::Table",
+                  "aws:cdk:cloudformation:props": {
+                    "attributeDefinitions": [
+                      {
+                        "attributeName": "RequestId",
+                        "attributeType": "S"
+                      }
+                    ],
+                    "keySchema": [
+                      {
+                        "attributeName": "RequestId",
+                        "keyType": "HASH"
+                      }
+                    ],
+                    "provisionedThroughput": {
+                      "readCapacityUnits": 5,
+                      "writeCapacityUnits": 5
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_dynamodb.CfnTable",
+                  "version": "2.102.0"
+                }
+              },
+              "ScalingRole": {
+                "id": "ScalingRole",
+                "path": "RIVPStack/IdentityVerificationResultsTable/ScalingRole",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.102.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_dynamodb.Table",
+              "version": "2.102.0"
             }
           },
           "CDKMetadata": {
