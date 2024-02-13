@@ -61,6 +61,16 @@ class RIVStack(Stack):
             timeout=Duration.minutes(3),
         )
 
+        generate_pdf_result = Function(
+            self,
+            "generate-pdf-result-process",
+            runtime=Runtime.PYTHON_3_8,
+            code=Code.from_asset("../lambda/generate-pdf-result-process")
+            handler="generate-pdf-result-process.handler",
+            role=lambda_role,
+            timeout=Duration.minutes(5)
+        )
+
 
         process_identity_verification_lambda.add_event_source(
             eventsources.S3EventSource(
